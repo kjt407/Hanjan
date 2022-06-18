@@ -1,0 +1,39 @@
+version: '2'
+
+
+#volumes: 
+#  certs: {}
+#  vhost: {}
+#  html: {}
+#  acme: {}
+
+services:
+  hanjan-backend:
+     container_name: hanjan-backend
+     image: hanjan-backend
+     restart: always
+#     links:
+#       - db
+     external_links:
+       - db
+     volumes:
+       - /docker/jongtk/hanjan:/resources
+     environment:
+#      - PUID=1000
+#      - PGID=1000
+       - VIRTUAL_HOST=hanjan.mfox.site
+       - LETSENCRYPT_HOST=hanjan.mfox.site
+#       - LETSENCRYPT_TEST=true
+       - TZ=Asia/Seoul
+     networks:
+       - jongtk_default
+#     ports:
+#       - 8081:8080
+#     depends_on:
+#       - nginx-proxy-acme
+#       - db
+#       - nginx-proxy
+
+networks:
+  jongtk_default:
+    external: true
