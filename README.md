@@ -77,4 +77,5 @@ RESTful 백엔드 시스템 개발 및 CI/CD 인프라 구축
 https://spring.io/guides/gs/spring-boot-docker/
 docker build --build-arg JAR_FILE=build/libs/\*.jar -t hanjan-backend .
 Github 트리거 테스트 5회차
+docker images auto rmi
   
