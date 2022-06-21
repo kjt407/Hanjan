@@ -55,6 +55,10 @@ RESTful 백엔드 시스템 개발 및 CI/CD 인프라 구축
   > ![도커 out of 도커](img_doc/docker_out_of_docker.png)
   >
   > __해결책: docker.sock 파일을 jenkins 컨테이너와 공유하여 jenkins컨테이너 에서 Host Docker 엔진을 사용할 수 있게 설계(Docker out of Docker)__
+<<<<<<< HEAD
+=======
+  
+>>>>>>> develop
   
 * jenkins 와 github 연동중 민감정보 파일 관리
   > 공개된 git repo에 키, 비밀번호 등 파일을 업로드 하는것은 매우 위험한 행동이다.
@@ -63,6 +67,10 @@ RESTful 백엔드 시스템 개발 및 CI/CD 인프라 구축
   > 
   > __해결책: 민감정보 파일을 jenkins 컨테이너에 생성하고 빌드가 트리거될때 파일을 주입시켜 빌드에 포함되도록 구현__
   
+<<<<<<< HEAD
+=======
+  
+>>>>>>> develop
 * 지속적인 Reverse proxy 적용
   > 다른 docker-compose 단위로 구성된 nginx-proxy 컨테이너와 같은 networks로 구성
   > [docker-compose](docker-compose.yml)
@@ -73,9 +81,23 @@ RESTful 백엔드 시스템 개발 및 CI/CD 인프라 구축
   > ~~~
   > 
   > __Spring 컨테이너의 배포와는 무관하게 nginx 프록시는 Spring 컨테이너를 항상 바라보도록 구현__
+<<<<<<< HEAD
+=======
   
+>>>>>>> develop
+  
+* Lombok Builder 잘못 알고 사용시 NullPointerException
+
+
+
+
+
 https://spring.io/guides/gs/spring-boot-docker/
 docker build --build-arg JAR_FILE=build/libs/\*.jar -t hanjan-backend .
 Github 트리거 테스트 5회차
 docker images auto rmi
+<<<<<<< HEAD
   
+=======
+  
+>>>>>>> develop
