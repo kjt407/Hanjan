@@ -51,20 +51,19 @@ RESTful 백엔드 시스템 개발 및 CI/CD 인프라 구축
   > 도커로 실행된 jenkins에서 스프링 서비스를 추가적인 도커 컨테이너로 실행하고자 할때 이중화 되는 문제(Docker in Docker)
   > DinD는 사용 가능한 구조긴 하지만 공식적으론 DinD보다 DooD방식을 권장하고 있음
   > DinD로 실행시 컨테이너가 절대적인 권한을 부여받는 등 보안상 문제가 방생함
+  > 
   > ![도커in도커](img_doc/docker_in_docker.png)
   > ![도커 out of 도커](img_doc/docker_out_of_docker.png)
   >
   > __해결책: docker.sock 파일을 jenkins 컨테이너와 공유하여 jenkins컨테이너 에서 Host Docker 엔진을 사용할 수 있게 설계(Docker out of Docker)__
-
-  
+  <br>
 * jenkins 와 github 연동중 민감정보 파일 관리
   > 공개된 git repo에 키, 비밀번호 등 파일을 업로드 하는것은 매우 위험한 행동이다.
   > 하지만 jenkins는 연결된 git repo에서 소스코드를 클론하여 빌드 동작을 수행한다.
   > 그래서 민감정보 파일을 형상관리에서 제외 시키면 jenkins는 제대로된 빌드를 수행할 수 없다.
   > 
   > __해결책: 민감정보 파일을 jenkins 컨테이너에 생성하고 빌드가 트리거될때 파일을 주입시켜 빌드에 포함되도록 구현__
-  
-
+  <br>
 * 지속적인 Reverse proxy 적용
   > 다른 docker-compose 단위로 구성된 nginx-proxy 컨테이너와 같은 networks로 구성
   > [docker-compose](docker-compose.yml)
@@ -75,14 +74,13 @@ RESTful 백엔드 시스템 개발 및 CI/CD 인프라 구축
   > ~~~
   > 
   > __Spring 컨테이너의 배포와는 무관하게 nginx 프록시는 Spring 컨테이너를 항상 바라보도록 구현__
-
-  
+  <br>
 * Lombok Builder 잘못 알고 사용시 NullPointerException
 
 
 
 
-
+  <br>  <br>  <br>  <br>  <br>
 https://spring.io/guides/gs/spring-boot-docker/
 docker build --build-arg JAR_FILE=build/libs/\*.jar -t hanjan-backend .
 Github 트리거 테스트 5회차
