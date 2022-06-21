@@ -10,8 +10,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,17 +34,34 @@ public class Member {
 	private long id;
 	
 	// 실제 Id로 사용함
+	@Column(unique = true, nullable = false)
 	private String username;
 	
+	@Column(unique = true, nullable = false)
 	private String email;
-	
+
+	@Column(nullable = false)
 	private String name;
 	
-	// 값타입 Address 객체
-	@Embedded
-	private Address address;
+	private String message;
+	
+	private int drinkCapacity;
+	
+	private Gender gender;
+	
+	@Builder.Default
+	@OneToMany(mappedBy = "host")
+	List<DrinkGroup> hosted = new ArrayList<DrinkGroup>();
+
+	@Builder.Default
+	@ManyToMany(mappedBy = "members")
+	List<DrinkGroup> joined = new ArrayList<DrinkGroup>();
 	
 	// mbti는 16개로 고정인것을 고려 Enum 타입으로 지정
 	private Mbti mbti;
+	
+	// 값타입 Address 객체
+	@Embedded
+	private Address address;	
 	
 }

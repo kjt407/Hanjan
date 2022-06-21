@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.jongtk.hanjan.repository.MemberRepository;
 import com.jongtk.hanjan.service.MemberService;
 
 @SpringBootTest
@@ -15,10 +16,12 @@ import com.jongtk.hanjan.service.MemberService;
 class MemberTests {
 
 	@Autowired MemberService MemberService;
+	@Autowired MemberRepository memberRepository;
 	
-	//회원가입 테스트
+	//내 그룹 찾기
 	@Test
-	void join() {
+	void findMyGroup() {
+		
 	}
 
 }
