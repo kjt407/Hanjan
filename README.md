@@ -76,6 +76,10 @@ RESTful 백엔드 시스템 개발 및 CI/CD 인프라 구축
   > __Spring 컨테이너의 배포와는 무관하게 nginx 프록시는 Spring 컨테이너를 항상 바라보도록 구현__
   <br>
 * Lombok Builder 잘못 알고 사용시 NullPointerException
+  <br>
+* JPA에서 양방향 관계 설정시 주인이 아닌 Entity에서 조작시 1차캐시 에러
+  > 양방향 관계에서는 관계의 주인쪽에서 데이터를 조작해야 DB에 정상적으로 반영된다
+
 
 
 

@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -47,17 +49,11 @@ public class Member {
 	
 	private int drinkCapacity;
 	
+	@Enumerated(EnumType.STRING)
 	private Gender gender;
 	
-	@Builder.Default
-	@OneToMany(mappedBy = "host")
-	List<DrinkGroup> hosted = new ArrayList<DrinkGroup>();
-
-	@Builder.Default
-	@ManyToMany(mappedBy = "members")
-	List<DrinkGroup> joined = new ArrayList<DrinkGroup>();
-	
 	// mbti는 16개로 고정인것을 고려 Enum 타입으로 지정
+	@Enumerated(EnumType.STRING)
 	private Mbti mbti;
 	
 	// 값타입 Address 객체

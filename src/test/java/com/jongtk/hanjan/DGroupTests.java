@@ -3,6 +3,7 @@ package com.jongtk.hanjan;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -72,8 +73,8 @@ class DGroupTests {
 				
 		//When
 		assertThatThrownBy(()->{
-			group1.addMember(member2);
-			group1.addMember(member2);
+			group1.getMembers().add(member2);
+			group1.getMembers().add(member2);
 		}).isInstanceOf(IllegalStateException.class).hasMessageContaining("이미 구성원 입니다.");
 
 		
@@ -81,76 +82,60 @@ class DGroupTests {
 		
 	}
 	
-	//내가 속한 그룹 찾기
+
+	//내가 속한 그룹 찾기 JPQL
 	@Test
-	public void findMyGroup() throws Exception{
+	public void findMyGroupJpql() throws Exception{
 		
 		//Given
 		createMemberEach();
+
 		
-		log.info("*****members: ");
-		log.info(member1);
-		log.info(member2);
-		log.info(member3);
+		DrinkGroup group1 = DrinkGroup.builder()
+				.host(member1)
+				.title("그룹1")
+				.build();
 		
-//		DrinkGroup group1 = DrinkGroup.builder()
-//				.host(member1)
-//				.title("그룹1")
-//				.build();
-//		
-//		DrinkGroup group2 = DrinkGroup.builder()
-//				.host(member1)
-//				.title("그룹2")
-//				.build();
-//		
-//		DrinkGroup group3 = DrinkGroup.builder()
-//				.host(member1)
-//				.title("그룹3")
-//				.build();
-//		
-//		DrinkGroup group4 = DrinkGroup.builder()
-//				.host(member2)
-//				.title("그룹2")
-//				.build();
+		DrinkGroup group2 = DrinkGroup.builder()
+				.host(member1)
+				.title("그룹2")
+				.build();
 		
-		DrinkGroup group1 = new DrinkGroup();
-		group1.host(member1,"그룹1");
+		DrinkGroup group3 = DrinkGroup.builder()
+				.host(member1)
+				.title("그룹3")
+				.build();
+
+		DrinkGroup group4 = DrinkGroup.builder()
+				.host(member2)
+				.title("그룹2")
+				.build();
 		
-		DrinkGroup group2 = new DrinkGroup();
-		group2.host(member1,"그룹2");
-		
-		DrinkGroup group3 = new DrinkGroup();
-		group3.host(member1,"그룹3");
-		
-		DrinkGroup group4 = new DrinkGroup();
-		group4.host(member2,"그룹4");
-		
-		
-		group4.addMember(member1);
+		group4.getMembers().add(member1);
 	
 		drinkGroupRepository.save(group1);
 		drinkGroupRepository.save(group2);
 		drinkGroupRepository.save(group3);
 		drinkGroupRepository.save(group4);
 		
-		Member targetMember = memberRepository.findById(member1.getId()).get();
+		log.info("group1 members size:"+group1.getMembers().size());
+		log.info("group2 members size:"+group2.getMembers().size());
+		log.info("group3 members size:"+group3.getMembers().size());
+		log.info("group4 members size:"+group4.getMembers().size());
 		
-		List<DrinkGroup> hosted = targetMember.getHosted();
-		List<DrinkGroup> joined = targetMember.getJoined();
-//		List<DrinkGroup> result = drinkGroupRepository.fin();
-		log.info("host 갯수: "+hosted.size());
-		log.info("join 갯수: "+joined.size());
+		List<DrinkGroup> joinedG = drinkGroupRepository.findJoinedGroup(member1.getId());
+		List<DrinkGroup> hostedG = drinkGroupRepository.findHostedGroup(member1.getId());
 		
-		for (DrinkGroup group : hosted) {
+		log.info("가입한 모임 갯수: "+joinedG.size()+" 개설한 모임 갯수: "+hostedG.size());
+		
+		for (DrinkGroup group : hostedG) {
 			log.info("member1이 개설한 그룹: "+group.getTitle());
 		}
-		for (DrinkGroup group : joined) {
+		for (DrinkGroup group : joinedG) {
 			log.info("member1이 가입한 그룹: "+group.getTitle());
 		}
 
-		
-		//Then
-		
+		//Then		
 	}
 	
 	

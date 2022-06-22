@@ -17,13 +17,11 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-import com.sun.xml.bind.v2.runtime.IllegalAnnotationsException;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 
 @Entity
@@ -64,30 +62,33 @@ public class DrinkGroup {
 	
 	private LocalDateTime dueDate;
 	
-	// 모임 만들기(hosting)
-	public void host(Member member, String title) throws Exception {
-		if(this.members.contains(member)) throw new IllegalStateException("이미 구성원 입니다.");		
-		this.host = member;
-		this.title = title;
-		member.hosted.add(this);
-	}
-	
-	// 구성원 추가 메서드
-	public void addMember(Member member) throws Exception {
-		if(this.members.contains(member)) throw new IllegalStateException("이미 구성원 입니다.");		
-		this.members.add(member);
-		member.joined.add(this);
-	}
-	
-	// 구성원 추방
-	public void removeMember(Member member) throws Exception {		
-		if(!this.members.contains(member)) throw new IllegalStateException(member.getName()+"님은 구성원이 아닙니다.");
-		this.members.remove(member);
-	}
-	
-	// 모임 날짜 확정
-	public void decideDueDate(LocalDateTime dueDate) {
-		this.dueDate = dueDate;
-	}
+
+// 양방향 관계 ==> 단방향으로 구조 변경
+//
+//	// 모임 만들기(hosting)
+//	public void host(Member member, String title) throws Exception {
+//		if(this.members.contains(member)) throw new IllegalStateException("이미 구성원 입니다.");		
+//		this.host = member;
+//		this.title = title;
+//		member.hosted.add(this);
+//	}
+//	
+//	// 구성원 추가 메서드
+//	public void addMember(Member member) throws Exception {
+//		if(this.members.contains(member)) throw new IllegalStateException("이미 구성원 입니다.");		
+//		this.members.add(member);
+//		member.joined.add(this);
+//	}
+//	
+//	// 구성원 추방
+//	public void removeMember(Member member) throws Exception {		
+//		if(!this.members.contains(member)) throw new IllegalStateException(member.getName()+"님은 구성원이 아닙니다.");
+//		this.members.remove(member);
+//	}
+//	
+//	// 모임 날짜 확정
+//	public void decideDueDate(LocalDateTime dueDate) {
+//		this.dueDate = dueDate;
+//	}
 	
 }
