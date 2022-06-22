@@ -16,6 +16,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.lang.Nullable;
+
 import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -36,21 +39,21 @@ public class Member {
 	private long id;
 	
 	// 실제 Id로 사용함
-	@Column(unique = true, nullable = false)
+	@Column(nullable = false)
 	private String username;
 	
-	@Column(unique = true, nullable = false)
+	@Column(nullable = false)
 	private String email;
 
 	@Column(nullable = false)
 	private String name;
 	
+	@Column(nullable = false) @Enumerated(EnumType.STRING) 
+	private Gender gender;
+	
 	private String message;
 	
 	private int drinkCapacity;
-	
-	@Enumerated(EnumType.STRING)
-	private Gender gender;
 	
 	// mbti는 16개로 고정인것을 고려 Enum 타입으로 지정
 	@Enumerated(EnumType.STRING)
@@ -59,5 +62,16 @@ public class Member {
 	// 값타입 Address 객체
 	@Embedded
 	private Address address;	
+	
+	//Entity 생성패턴: 팩토리메소드
+	public static Member createMember(String username, String email, String name, Gender gender) {
+		Member member = new Member();
+		member.username = username;
+		member.email = email;
+		member.name = name;
+		member.gender = gender;
+
+		return member;
+	}
 	
 }

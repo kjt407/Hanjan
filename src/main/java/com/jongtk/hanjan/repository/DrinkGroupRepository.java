@@ -15,7 +15,7 @@ public interface DrinkGroupRepository extends JpaRepository<DrinkGroup, Long>{
 	
 	@Query("select dg from DrinkGroup dg join dg.members m where m.id=:member_id")
 	List<DrinkGroup> findJoinedGroup(@Param("member_id")long member_id);	
-	
-	@Query("select dg from DrinkGroup dg where dg.host.id=:member_id")
-	List<DrinkGroup> findHostedGroup(@Param("member_id")long member_id);
+//	
+//	@Query("select dg from DrinkGroup dg where dg.host.id=:member_id")
+//	List<DrinkGroup> findHostedGroup(@Param("member_id")long member_id);
 }
