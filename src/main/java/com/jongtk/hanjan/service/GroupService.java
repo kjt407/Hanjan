@@ -1,5 +1,7 @@
 package com.jongtk.hanjan.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.jongtk.hanjan.entity.Group;
@@ -44,6 +46,8 @@ public class GroupService {
 	//그룹탈퇴
 	
 	//그룹조회(ALL)
+
+	
 	//그룹조회(My)
 	//그룹조회(findHost)
 	//그룹조회(findMembers)

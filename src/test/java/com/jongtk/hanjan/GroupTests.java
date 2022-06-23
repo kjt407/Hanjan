@@ -57,38 +57,26 @@ class GroupTests {
 			log.info(memberGroup.getMember().getName());
 		}
 		
-		List<Group> groups = memberGroupRepository.findMyGroup(member1.getId());
-		log.info(groups.size());
+		//내가 속한 그룹(호스팅+구성원)
+		List<Group> groups = groupRepository.findMyGroup(member1.getId());
+		log.info("내가 속한 모든 그룹: "+groups.size());
 		for(Group group : groups) {
 			log.info(group.getTitle());
 		};
 		
+		//내가 호스팅한 그룹
+		List<Group> groupHosted = groupRepository.findHostGroup(member1.getId());
+		log.info("내가 호스팅한 그룹: "+groupHosted.size());
+		for(Group group : groupHosted) {
+			log.info(group.getTitle());
+		};
 		
-		
-//		Group group1 = Group.createGroup(member1, "그룹1", "그냥내용");
-//		Group group2 = Group.createGroup(member1, "그룹2", "그냥내용");
-//		Group group3 = Group.createGroup(member1, "그룹3", "그냥내용");
-//		Group group4 = Group.createGroup(member2, "그룹4", "그냥내용");
-//		
-//		group4.getMembers().add(member1);
-//	
-//		drinkGroupRepository.save(group1);
-//		drinkGroupRepository.save(group2);
-//		drinkGroupRepository.save(group3);
-//		drinkGroupRepository.save(group4);
-//		
-//		log.info("group1 members size:"+group1.getMembers().size());
-//		log.info("group2 members size:"+group2.getMembers().size());
-//		log.info("group3 members size:"+group3.getMembers().size());
-//		log.info("group4 members size:"+group4.getMembers().size());
-//		
-//		List<Group> joinedG = drinkGroupRepository.findJoinedGroup(member1.getId());
-//		
-//		log.info("가입한 모임 갯수: "+joinedG.size());
-//		
-//		for (Group group : joinedG) {
-//			log.info("member1이 가입한 그룹: "+group.getTitle());
-//		}
+		//내가 가입한 그룹
+		List<Group> groupJoined = groupRepository.findJoinGroup(member1.getId());
+		log.info("내가 가입한(호스팅 제외) 그룹: "+groupJoined.size());
+		for(Group group : groupJoined) {
+			log.info(group.getTitle());
+		};
 
 	}
 	
