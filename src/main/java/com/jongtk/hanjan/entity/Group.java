@@ -58,17 +58,24 @@ public class Group {
 	@Builder.Default
 	private List<MemberGroup> memberGroups = new ArrayList<>();
 	
+	
+	//비즈니스 메소드
+	
 	public static Group createGroup(Member member, String title, String content, MemberGroup... memberGroups) {
 		Group group= new Group();
 		group.host = member;
 		group.title = title;
-		group.content = content;
-		
+		group.content = content;	
 		for(MemberGroup memberGroup: memberGroups) {
-			group.memberGroups.add(memberGroup);
+			group.addMemberGroup(memberGroup);
 		}
-		
+	
 		return group;
+	}
+
+	public void addMemberGroup(MemberGroup memberGroup) {
+		memberGroups.add(memberGroup);
+		memberGroup.setGroup(this);
 	}
 	
 }

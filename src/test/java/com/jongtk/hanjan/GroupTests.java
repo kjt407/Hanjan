@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 
 import com.jongtk.hanjan.entity.Gender;
 import com.jongtk.hanjan.entity.Group;
@@ -33,7 +34,7 @@ class GroupTests {
 	Member member3;
 	
 	//내가 속한 그룹 찾기2
-	@Test
+	@Test @Rollback(false)
 	public void 내그룹찾기() throws Exception{
 		
 		//Given
@@ -56,7 +57,7 @@ class GroupTests {
 			log.info(memberGroup.getMember().getName());
 		}
 		
-		List<Group> groups = groupRepository.findMyGroup(member1.getId());
+		List<Group> groups = memberGroupRepository.findMyGroup(member1.getId());
 		log.info(groups.size());
 		for(Group group : groups) {
 			log.info(group.getTitle());

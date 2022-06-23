@@ -36,7 +36,9 @@ public class GroupService {
 		Group group = groupRepository.findById(groupId).get();
 		
 		MemberGroup memberGroup = MemberGroup.createMemberGroup(member);
-		group.getMemberGroups().add(memberGroup);
+		group.addMemberGroup(memberGroup);
+		
+		groupRepository.save(group);
 	}
 	
 	//그룹탈퇴

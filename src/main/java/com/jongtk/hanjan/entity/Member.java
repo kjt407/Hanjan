@@ -64,6 +64,11 @@ public class Member {
 	@Embedded
 	private Address address;	
 	
+	
+	@OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+	@Builder.Default
+	private List<MemberGroup> memberGroups = new ArrayList<MemberGroup>();
+	
 	//Entity 생성패턴: 팩토리메소드
 	public static Member createMember(String username, String email, String name, Gender gender) {
 		Member member = new Member();

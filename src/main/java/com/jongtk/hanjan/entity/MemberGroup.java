@@ -40,9 +40,11 @@ public class MemberGroup {
 	private long id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "MEMBER_ID")
 	private Member member;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "GROUP_ID")
 	private Group group;
 	
 	
@@ -51,6 +53,10 @@ public class MemberGroup {
 		memberGroup.member = member;
 		
 		return memberGroup;
+	}
+
+	public void setGroup(Group group) {
+		this.group = group;
 	}
 	
 }
