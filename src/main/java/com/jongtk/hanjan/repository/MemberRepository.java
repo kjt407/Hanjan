@@ -1,6 +1,7 @@
 package com.jongtk.hanjan.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,5 +16,9 @@ public interface MemberRepository extends JpaRepository<Member, Long>{
 	
 	@Query("select mg.group from Member m join m.memberGroups mg on m.id = mg.member.id")
 	List<Group> findMyGroup(@Param("member_id") Long member_id);
+	
+	
+	@Query("select m from Member m where m.username = :username")
+	Optional<Member> findByUsername(@Param("username") String username);	
 	
 }
