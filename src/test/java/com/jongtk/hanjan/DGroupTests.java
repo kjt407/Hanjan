@@ -11,10 +11,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.jongtk.hanjan.entity.DrinkGroup;
+import com.jongtk.hanjan.entity.Group;
 import com.jongtk.hanjan.entity.Gender;
 import com.jongtk.hanjan.entity.Member;
-import com.jongtk.hanjan.repository.DrinkGroupRepository;
+import com.jongtk.hanjan.repository.GroupRepository;
 import com.jongtk.hanjan.repository.MemberRepository;
 
 import lombok.extern.log4j.Log4j2;
@@ -24,7 +24,7 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 class DGroupTests {
 
-	@Autowired DrinkGroupRepository drinkGroupRepository;
+	@Autowired GroupRepository drinkGroupRepository;
 	@Autowired MemberRepository memberRepository;
 	Member member1;
 	Member member2;
@@ -143,38 +143,37 @@ class DGroupTests {
 	@Test
 	public void 내그룹찾기() throws Exception{
 		
-		//Given
-		createMemberEach();
-		memberRepository.save(member1);
-		memberRepository.save(member2);
-		memberRepository.save(member3);
+//		//Given
+//		createMemberEach();
+//		memberRepository.save(member1);
+//		memberRepository.save(member2);
+//		memberRepository.save(member3);
+//
+//		Group group1 = Group.createGroup(member1, "그룹1", "그냥내용");
+//		Group group2 = Group.createGroup(member1, "그룹2", "그냥내용");
+//		Group group3 = Group.createGroup(member1, "그룹3", "그냥내용");
+//		Group group4 = Group.createGroup(member2, "그룹4", "그냥내용");
+//		
+//		group4.getMembers().add(member1);
+//	
+//		drinkGroupRepository.save(group1);
+//		drinkGroupRepository.save(group2);
+//		drinkGroupRepository.save(group3);
+//		drinkGroupRepository.save(group4);
+//		
+//		log.info("group1 members size:"+group1.getMembers().size());
+//		log.info("group2 members size:"+group2.getMembers().size());
+//		log.info("group3 members size:"+group3.getMembers().size());
+//		log.info("group4 members size:"+group4.getMembers().size());
+//		
+//		List<Group> joinedG = drinkGroupRepository.findJoinedGroup(member1.getId());
+//		
+//		log.info("가입한 모임 갯수: "+joinedG.size());
+//		
+//		for (Group group : joinedG) {
+//			log.info("member1이 가입한 그룹: "+group.getTitle());
+//		}
 
-		DrinkGroup group1 = DrinkGroup.createGroup(member1, "그룹1", "그냥내용");
-		DrinkGroup group2 = DrinkGroup.createGroup(member1, "그룹2", "그냥내용");
-		DrinkGroup group3 = DrinkGroup.createGroup(member1, "그룹3", "그냥내용");
-		DrinkGroup group4 = DrinkGroup.createGroup(member2, "그룹4", "그냥내용");
-		
-		group4.getMembers().add(member1);
-	
-		drinkGroupRepository.save(group1);
-		drinkGroupRepository.save(group2);
-		drinkGroupRepository.save(group3);
-		drinkGroupRepository.save(group4);
-		
-		log.info("group1 members size:"+group1.getMembers().size());
-		log.info("group2 members size:"+group2.getMembers().size());
-		log.info("group3 members size:"+group3.getMembers().size());
-		log.info("group4 members size:"+group4.getMembers().size());
-		
-		List<DrinkGroup> joinedG = drinkGroupRepository.findJoinedGroup(member1.getId());
-		
-		log.info("가입한 모임 갯수: "+joinedG.size());
-		
-		for (DrinkGroup group : joinedG) {
-			log.info("member1이 가입한 그룹: "+group.getTitle());
-		}
-
-		//Then		
 	}
 	
 	
