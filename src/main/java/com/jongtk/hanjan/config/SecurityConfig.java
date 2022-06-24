@@ -48,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 	@Bean
 	public ApiCheckFilter apiCheckFilter() {
-		return new ApiCheckFilter("/api/**/*");
+		return new ApiCheckFilter("/api/group/*");
 	}
 	
 	@Bean

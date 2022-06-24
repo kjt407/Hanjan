@@ -3,6 +3,8 @@ package com.jongtk.hanjan.service;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,6 +20,7 @@ import lombok.extern.log4j.Log4j2;
 @Service
 @Log4j2
 @RequiredArgsConstructor
+@Transactional
 public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService{
 	 //UserDetailsService를 구현
 	

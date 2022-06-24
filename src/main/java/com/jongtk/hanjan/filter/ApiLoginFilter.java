@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
@@ -30,14 +31,16 @@ public class ApiLoginFilter extends AbstractAuthenticationProcessingFilter{//인
 		log.info("ApiLoginFilter=============");
 		
 		String username = request.getParameter("username");
-		String password = "1111";
+		String password = request.getParameter("password");
 		
 		if(username == null) {
 			//AuthenticationException를 구현한 Exception중 하나
 			throw new BadCredentialsException("id cannot be null");	
 		}
 		
-		return null;
+		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
+		
+		return getAuthenticationManager().authenticate(token);
 	} 
 	
 	
