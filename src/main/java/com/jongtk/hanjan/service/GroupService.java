@@ -1,9 +1,13 @@
 package com.jongtk.hanjan.service;
 
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.jongtk.hanjan.dto.GroupDTO;
 import com.jongtk.hanjan.entity.Group;
 import com.jongtk.hanjan.entity.Member;
 import com.jongtk.hanjan.entity.MemberGroup;
@@ -46,6 +50,21 @@ public class GroupService {
 	//그룹탈퇴
 	
 	//그룹조회(ALL)
+	public List<GroupDTO> getAll() {
+		List<Group> groups = groupRepository.findAll();
+		
+		List<GroupDTO> result = groups.stream().map(group -> {
+			GroupDTO groupDTO = GroupDTO.builder()
+					.id(group.getId())
+					.hostId(group.getHost().getId())
+					.title(group.getTitle())
+					.content(group.getContent())
+					.build();
+			return groupDTO;
+		}).collect(Collectors.toList());
+		
+		return result;
+	}
 
 	
 	//그룹조회(My)

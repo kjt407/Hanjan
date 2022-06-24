@@ -73,10 +73,12 @@ public class Member {
 	
 	
 	//Entity 생성패턴: 팩토리메소드
-	public static Member createMember(String email, String name, Gender gender) {
+	public static Member createMember(String username, String email, String name, String password, Gender gender) {
 		Member member = new Member();
+		member.username = username;
 		member.email = email;
 		member.name = name;
+		member.password = password;
 		member.gender = gender;
 
 		return member;

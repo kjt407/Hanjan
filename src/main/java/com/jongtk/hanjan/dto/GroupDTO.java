@@ -14,15 +14,20 @@ import javax.persistence.OneToMany;
 import com.jongtk.hanjan.entity.Member;
 import com.jongtk.hanjan.entity.MemberGroup;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class GroupDTO {
 
-	private long id;
+	private Long id;
 	
-	private Member host;
+	private Long hostId;
 	
 	private String title;
 
