@@ -10,9 +10,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.jongtk.hanjan.dto.AuthMemberDTO;
 import com.jongtk.hanjan.entity.Member;
 import com.jongtk.hanjan.repository.MemberRepository;
+import com.jongtk.hanjan.security.dto.AuthMemberDTO;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -20,7 +20,6 @@ import lombok.extern.log4j.Log4j2;
 @Service
 @Log4j2
 @RequiredArgsConstructor
-@Transactional
 public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService{
 	 //UserDetailsService를 구현
 	
@@ -49,9 +48,8 @@ public class UserDetailsService implements org.springframework.security.core.use
 				member.getPassword(),
 				member.getName(),
 				member.getEmail(),
-				member.getGender(),
 				member.getRoleSet().stream().map(
-						role -> new SimpleGrantedAuthority(role.name())
+						role -> new SimpleGrantedAuthority("ROLE_"+role.name())
 						).collect(Collectors.toSet())
 				);
 		

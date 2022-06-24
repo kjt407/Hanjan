@@ -3,6 +3,7 @@ package com.jongtk.hanjan.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -12,8 +13,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.jongtk.hanjan.filter.ApiCheckFilter;
-import com.jongtk.hanjan.filter.ApiLoginFilter;
+import com.jongtk.hanjan.security.filter.ApiCheckFilter;
+import com.jongtk.hanjan.security.filter.ApiLoginFilter;
+import com.jongtk.hanjan.security.handler.ApiLoginFailHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -30,8 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/main").hasRole("USER");
+    	
         http.csrf().disable();
         http.logout();
         http.rememberMe().tokenValiditySeconds(60*60*24*7).userDetailsService(userDetailsService);
@@ -40,11 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http.addFilterBefore(apiLoginFilter(), UsernamePasswordAuthenticationFilter.class);
         http.addFilterBefore(apiCheckFilter(), UsernamePasswordAuthenticationFilter.class);
     }
-
-//    @Bean
-//    public LoginSuccessHandler successHandler(){
-//        return new LoginSuccessHandler(passwordEncoder());
-//    }
+    
 
 	@Bean
 	public ApiCheckFilter apiCheckFilter() {
@@ -55,6 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	public ApiLoginFilter apiLoginFilter() throws Exception{
 		ApiLoginFilter apiLoginFilter =  new ApiLoginFilter("/api/login");
 		apiLoginFilter.setAuthenticationManager(authenticationManager());	//WebSecurityConfigurerAdapter
+		apiLoginFilter.setAuthenticationFailureHandler(new ApiLoginFailHandler());	//WebSecurityConfigurerAdapter
 		
 		return apiLoginFilter; 
 	}

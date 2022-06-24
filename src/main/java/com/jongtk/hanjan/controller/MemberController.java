@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jongtk.hanjan.dto.MemberDTO;
-import com.jongtk.hanjan.service.MemberService;
+import com.jongtk.hanjan.service.LoginService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MemberController {
 	
-	private final MemberService memberService;
+	private final LoginService memberService;
 	
 	@PostMapping({"/join"})
 	public ResponseEntity<Long> join(MemberDTO memberDTO){

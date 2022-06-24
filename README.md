@@ -87,21 +87,34 @@ RESTful 백엔드 시스템 개발 및 CI/CD 인프라 구축
 
   <br>
 
-  - Lombok Builder 잘못 알고 사용시 NullPointerException
-    > ```
-    > @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
-    > // @Builder.Default
-    > private List<MemberGroup> memberGroups = new ArrayList<MemberGroup>();
-    > ```
-    >
-    > **빌터패턴 사용시 기본값으로 null이 입력된다 이를 방지하기 위해 @Builder.Default를 사용하여 기본값 명시**
+- Lombok Builder 잘못 알고 사용시 NullPointerException
+
+  > ```
+  > @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+  > // @Builder.Default
+  > private List<MemberGroup> memberGroups = new ArrayList<MemberGroup>();
+  > ```
+  >
+  > **빌터패턴 사용시 기본값으로 null이 입력된다 이를 방지하기 위해 @Builder.Default를 사용하여 기본값 명시**
 
   <br>
 
-  - JPA에서 양방향 관계 설정시 주인이 아닌 Entity에서 조작시 1차캐시 에러
-    > 양방향 관계에서는 관계의 주인쪽에서 데이터를 조작해야 DB에 정상적으로 반영된다
+- JPA에서 양방향 관계 설정시 주인이 아닌 Entity에서 조작시 1차캐시 에러
+
+  > 양방향 관계에서는 관계의 주인쪽에서 데이터를 조작해야 DB에 정상적으로 반영된다
 
   <br>
+
+- REST 방식으로 로그인 구현
+
+  > RESTful 서버는 캐시와 세션을 유지하지 않는 무상태성으로 설계되어야 한다
+  > 세션을 활용한 로그인 방식 => 토큰을 사용한 인증 방식 구현
+
+  <br>
+  
+  <br><br>
+## ToDoList in Project
+- 로그인 구현 시 파라미터 암호화
 
   <br> <br> <br> <br> <br>
   https://spring.io/guides/gs/spring-boot-docker/

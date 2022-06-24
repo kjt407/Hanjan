@@ -9,13 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.jongtk.hanjan.repository.MemberRepository;
-import com.jongtk.hanjan.service.MemberService;
+import com.jongtk.hanjan.service.LoginService;
 
 @SpringBootTest
 @Transactional
 class MemberTests {
 
-	@Autowired MemberService MemberService;
+	@Autowired LoginService MemberService;
 	@Autowired MemberRepository memberRepository;
 	
 	//내 그룹 찾기

@@ -1,4 +1,4 @@
-package com.jongtk.hanjan.filter;
+package com.jongtk.hanjan.security.filter;
 
 import java.io.IOException;
 import java.io.PrintWriter;
