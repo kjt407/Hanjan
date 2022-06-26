@@ -17,6 +17,7 @@ import com.jongtk.hanjan.security.filter.ApiCheckFilter;
 import com.jongtk.hanjan.security.filter.ApiLoginFilter;
 import com.jongtk.hanjan.security.handler.ApiLoginFailHandler;
 import com.jongtk.hanjan.security.handler.ApiLoginSuccessfulHandler;
+import com.jongtk.hanjan.security.util.JWTUtil;
 
 @Configuration
 @EnableWebSecurity
@@ -46,12 +47,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 	@Bean
 	public ApiCheckFilter apiCheckFilter() {
-		return new ApiCheckFilter("/api/group/*");
+		return new ApiCheckFilter("/api/group/*", jwtUtil());
+	}
+	
+	@Bean
+	public JWTUtil jwtUtil() {
+		return new JWTUtil();
 	}
 	
 	@Bean
 	public ApiLoginFilter apiLoginFilter() throws Exception{
-		ApiLoginFilter apiLoginFilter =  new ApiLoginFilter("/api/login");
+		ApiLoginFilter apiLoginFilter =  new ApiLoginFilter("/api/login", jwtUtil());
 		apiLoginFilter.setAuthenticationManager(authenticationManager());	//WebSecurityConfigurerAdapter
 		apiLoginFilter.setAuthenticationFailureHandler(new ApiLoginFailHandler());
 		apiLoginFilter.setAuthenticationSuccessHandler(new ApiLoginSuccessfulHandler());

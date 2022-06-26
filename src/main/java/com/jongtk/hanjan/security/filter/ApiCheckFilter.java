@@ -15,6 +15,7 @@ import org.springframework.util.AntPathMatcher;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.jongtk.hanjan.security.util.JWTUtil;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -24,10 +25,13 @@ public class ApiCheckFilter extends OncePerRequestFilter{ //매번 동작하는 
 	private AntPathMatcher antPathMatcher;
 	private String pattern;
 	
-	public ApiCheckFilter(String pattern) {
+	private JWTUtil jwtUtil;
+	
+	public ApiCheckFilter(String pattern, JWTUtil jwtUtil) {
 		//기본 생성자를 통해 antPattern을 입력받아 초기화함
 		this.antPathMatcher = new AntPathMatcher();
 		this.pattern = pattern;
+		this.jwtUtil = jwtUtil;
 		
 	}
 
@@ -67,9 +71,16 @@ public class ApiCheckFilter extends OncePerRequestFilter{ //매번 동작하는 
 		boolean result = false;
 		
 		String authHeader = request.getHeader("Authorization");
-		if(StringUtils.hasText(authHeader)) {
-			if(authHeader.equals("1234"))
-			result = true;
+		
+		if(StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ")) {
+			
+			String email;
+			try {
+				email = jwtUtil.ValidateWithExtract(authHeader.substring(7)); // Bearer 이후의 토큰 문자열만 받아옴
+				result = email.length() > 0; //!email.isEmpty(); NullpointerException 발생함
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return result;
