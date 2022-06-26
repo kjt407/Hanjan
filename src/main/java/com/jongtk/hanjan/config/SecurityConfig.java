@@ -16,6 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.jongtk.hanjan.security.filter.ApiCheckFilter;
 import com.jongtk.hanjan.security.filter.ApiLoginFilter;
 import com.jongtk.hanjan.security.handler.ApiLoginFailHandler;
+import com.jongtk.hanjan.security.handler.ApiLoginSuccessfulHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -52,7 +53,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	public ApiLoginFilter apiLoginFilter() throws Exception{
 		ApiLoginFilter apiLoginFilter =  new ApiLoginFilter("/api/login");
 		apiLoginFilter.setAuthenticationManager(authenticationManager());	//WebSecurityConfigurerAdapter
-		apiLoginFilter.setAuthenticationFailureHandler(new ApiLoginFailHandler());	//WebSecurityConfigurerAdapter
+		apiLoginFilter.setAuthenticationFailureHandler(new ApiLoginFailHandler());
+		apiLoginFilter.setAuthenticationSuccessHandler(new ApiLoginSuccessfulHandler());
 		
 		return apiLoginFilter; 
 	}

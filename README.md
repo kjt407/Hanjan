@@ -74,7 +74,7 @@ RESTful 백엔드 시스템 개발 및 CI/CD 인프라 구축
 
 - 지속적인 Reverse proxy 적용
 
-  > 다른 docker-compose 단위로 구성된 nginx-proxy 컨테이너와 같은 networks로 구성
+  > 다른 docker-compose 단위로 구성된 nginx-proxy 컨테이너와 같은 networks로 구성  
   > [docker-compose](docker-compose.yml)
   >
   > ```
@@ -95,7 +95,8 @@ RESTful 백엔드 시스템 개발 및 CI/CD 인프라 구축
   > private List<MemberGroup> memberGroups = new ArrayList<MemberGroup>();
   > ```
   >
-  > **빌터패턴 사용시 기본값으로 null이 입력된다 이를 방지하기 위해 @Builder.Default를 사용하여 기본값 명시**
+  > **빌터패턴 사용시 기본값으로 null이 입력된다 이를 방지하기 위해  
+  > @Builder.Default를 사용하여 기본값 명시**
 
   <br>
 
@@ -107,7 +108,7 @@ RESTful 백엔드 시스템 개발 및 CI/CD 인프라 구축
 
 - REST 방식으로 로그인 구현
 
-  > RESTful 서버는 캐시와 세션을 유지하지 않는 무상태성으로 설계되어야 한다
+  > RESTful 서버는 캐시와 세션을 유지하지 않는 무상태성으로 설계되어야 한다  
   > 세션을 활용한 로그인 방식 => 토큰(JWT)을 사용한 인증 방식 구현
 
   <br>

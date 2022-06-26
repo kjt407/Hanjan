@@ -52,6 +52,7 @@ public class UserDetailsService implements org.springframework.security.core.use
 						role -> new SimpleGrantedAuthority("ROLE_"+role.name())
 						).collect(Collectors.toSet())
 				);
+		authMemberDTO.setId(member.getId());
 		
 		return authMemberDTO;
 	}
