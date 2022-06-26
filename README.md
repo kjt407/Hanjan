@@ -91,7 +91,7 @@ RESTful 백엔드 시스템 개발 및 CI/CD 인프라 구축
 
   > ```
   > @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
-  > // @Builder.Default
+  > @Builder.Default // 설정 안할 시 Null이 기본값
   > private List<MemberGroup> memberGroups = new ArrayList<MemberGroup>();
   > ```
   >
@@ -108,16 +108,16 @@ RESTful 백엔드 시스템 개발 및 CI/CD 인프라 구축
 - REST 방식으로 로그인 구현
 
   > RESTful 서버는 캐시와 세션을 유지하지 않는 무상태성으로 설계되어야 한다
-  > 세션을 활용한 로그인 방식 => 토큰을 사용한 인증 방식 구현
+  > 세션을 활용한 로그인 방식 => 토큰(JWT)을 사용한 인증 방식 구현
 
   <br>
   
   <br><br>
 ## ToDoList in Project
 - 로그인 구현 시 파라미터 암호화
+- CustomException + @RestControllerAdvice 공통예외 처리
+- Vue.js 활용(SPA)  프론트엔드 구현
+- CORS 문제 해결 @CrossOrigin
 
-  <br> <br> <br> <br> <br>
-  https://spring.io/guides/gs/spring-boot-docker/
-  docker build --build-arg JAR_FILE=build/libs/\*.jar -t hanjan-backend .
-  Github 트리거 테스트 5회차
-  docker images auto rmi
+
+
