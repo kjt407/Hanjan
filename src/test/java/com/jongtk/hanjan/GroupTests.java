@@ -83,9 +83,9 @@ class GroupTests {
 	
 	//테스트 편의 메서드
 	void createMemberEach() {
-		member1 = Member.createMember("user1", "user1@gmail.com", "유저1", "1111", Gender.MALE);
-		member2 = Member.createMember("user2", "user2@gmail.com", "유저2", "1211", Gender.FEMALE);
-		member3 = Member.createMember("user3", "user3@gmail.com", "유저3", "1121", Gender.MALE);
+		member1 = Member.createMember("user1@gmail.com", "유저1", "1111", Gender.MALE);
+		member2 = Member.createMember("user2@gmail.com", "유저2", "1211", Gender.FEMALE);
+		member3 = Member.createMember("user3@gmail.com", "유저3", "1121", Gender.MALE);
 	}
 	
 

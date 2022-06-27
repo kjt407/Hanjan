@@ -27,22 +27,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class Member {
+public class Member extends BaseEntity{
 
 	// Member 식별번호(일련번호)
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "MEMBER_ID")
 	private long id;
 	
-	// 실제 Id로 사용함
 	@Column(nullable = false, unique = true)
-	private String username;
+	private String email;
 	
 	@Column(nullable = false)
 	private String password;
-	
-	@Column(nullable = false)
-	private String email;
 
 	@Column(nullable = false)
 	private String name;
@@ -73,9 +69,8 @@ public class Member {
 	
 	
 	//Entity 생성패턴: 팩토리메소드
-	public static Member createMember(String username, String email, String name, String password, Gender gender) {
+	public static Member createMember(String email, String name, String password, Gender gender) {
 		Member member = new Member();
-		member.username = username;
 		member.email = email;
 		member.name = name;
 		member.password = password;

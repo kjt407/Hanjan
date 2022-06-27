@@ -31,7 +31,7 @@ public class UserDetailsService implements org.springframework.security.core.use
 		
 		log.info("loadUserByUsername 호출됨 ==== "+username);
 		
-		Optional<Member> memberOp = memberRepository.findByUsername(username);
+		Optional<Member> memberOp = memberRepository.findByEmail(username);
 		
 		if(memberOp.isEmpty()) {
 			// 입력된 아이디를 가진 회원이 있는지 검증
@@ -44,7 +44,7 @@ public class UserDetailsService implements org.springframework.security.core.use
 		
 		// SpringSecurity User가 의도한 대로 GrantedAuthority를 생성해서 반환
 		AuthMemberDTO authMemberDTO = new AuthMemberDTO(
-				member.getUsername(), 
+				member.getEmail(), 
 				member.getPassword(),
 				member.getName(),
 				member.getEmail(),

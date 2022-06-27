@@ -37,7 +37,7 @@ import lombok.extern.log4j.Log4j2;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type")
 @Table(name = "GROUPS")
-public class Group {
+public class Group extends BaseEntity{
 	
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "GROUP_ID")

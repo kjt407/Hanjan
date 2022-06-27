@@ -32,7 +32,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class MemberGroup {
+public class MemberGroup extends BaseEntity{
 
 	// 연결테이블을 Entity로 승격 대리키 사용
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
