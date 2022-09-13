@@ -21,7 +21,6 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @RequiredArgsConstructor
 public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService{
-	 //UserDetailsService를 구현
 	
 	private final MemberRepository memberRepository;
 

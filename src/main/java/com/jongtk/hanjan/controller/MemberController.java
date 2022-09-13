@@ -1,5 +1,6 @@
 package com.jongtk.hanjan.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.json.simple.JSONObject;
@@ -19,33 +20,44 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/member")
 @RequiredArgsConstructor
 public class MemberController {
-	
+	               
 	private final LoginService memberService;
 	
 	//회원가입
 	@PostMapping({"/join"})
-	public ResponseEntity<Long> join(MemberDTO memberDTO){
+	public ResponseEntity<HashMap<String,Object>> join(MemberDTO memberDTO){
 		
-		Long id = memberService.join(memberDTO);
+		HashMap<String,Object> result = new HashMap<>();
+		Long id;
 		
-		return new ResponseEntity<Long>(id, HttpStatus.OK);
+		try {
+			id = memberService.join(memberDTO);
+		} catch (Exception e) {
+			// 회원 가입 에러 발생 시
+			result.put("message", "failed to register member");
+			return ResponseEntity.internalServerError().body(result);
+		}
+		
+		result.put("message", "success");
+		result.put("id", id);
+		return ResponseEntity.ok().body(result);
 	}
 	
 	//Email 중복 검사
-	@GetMapping("/duplication")
-	public ResponseEntity<JSONObject> checkDuplicationEmail(String email){
+	@GetMapping("/duplicate")
+	public ResponseEntity<HashMap<String,Object>> checkDuplicationEmail(String email){
 		
-		JSONObject json = new JSONObject();
+		HashMap<String,Object> result = new HashMap<>();
 		
-		boolean duplication = memberService.checkDuplicationEmail(email);
+		boolean duplicate = memberService.checkDuplicationEmail(email);
 		
-		if(duplication) {
-			json.put("message", "Email '"+email+"' already exists");
-			return new ResponseEntity<JSONObject>(json, HttpStatus.CONFLICT) ;
-		}
+		if(duplicate) {
+			result.put("message", "Email '"+email+"' already exists");
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(result);
+			}
 		
-		json.put("message", email+" is available email");
-		return new ResponseEntity<JSONObject>(json, HttpStatus.OK) ;
+		result.put("message", email+" is available email");
+		return ResponseEntity.ok().body(result);
 	}
 	
 	

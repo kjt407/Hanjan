@@ -20,8 +20,8 @@ public class GroupController {
 	
 	private final GroupService groupService;
 	
-	@GetMapping({"","/get"})
-	public ResponseEntity<List<GroupDTO>> get(){
+	@GetMapping("/list")
+	public ResponseEntity<List<GroupDTO>> list(){
 		List<GroupDTO> result =  groupService.getAll();
 		
 		return new ResponseEntity<List<GroupDTO>>(result, HttpStatus.OK);

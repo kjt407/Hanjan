@@ -20,7 +20,8 @@ import com.jongtk.hanjan.security.util.JWTUtil;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
-public class ApiCheckFilter extends OncePerRequestFilter{ //매번 동작하는 기본적인 필터
+public class ApiCheckFilter extends OncePerRequestFilter{ 
+	//OncePerRequestFilter - 매번 동작하는 기본적인 필터
 	
 	private AntPathMatcher antPathMatcher;
 	private String pattern;

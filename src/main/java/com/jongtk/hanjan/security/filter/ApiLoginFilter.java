@@ -23,7 +23,8 @@ import com.jongtk.hanjan.security.util.JWTUtil;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
-public class ApiLoginFilter extends AbstractAuthenticationProcessingFilter{//인증진행 추상 필터 클래스
+public class ApiLoginFilter extends AbstractAuthenticationProcessingFilter{
+	//AbstractAuthenticationProcessingFilter - 인증진행 필터 추상 클래스
 	
 	private JWTUtil jwtUtil;
 	

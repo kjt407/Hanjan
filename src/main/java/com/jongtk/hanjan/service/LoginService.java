@@ -32,7 +32,11 @@ public class LoginService {
 	private final PasswordEncoder passwordEncoder;
 	
 	
-	//회원가입
+	/**
+	 * 회원가입
+	 * @param memberDTO
+	 * (email, password, name, gender)
+	 */
 	public Long join(MemberDTO memberDTO) {
 		
 		log.info("request join Member ==== ");
@@ -49,7 +53,6 @@ public class LoginService {
 		
 		memberRepository.save(member);
 		
-		
 		log.info("request join Encoded Member ==== ");
 		log.info(member.getPassword());
 
@@ -57,7 +60,10 @@ public class LoginService {
 		return member.getId();
 	}
 	
-	//Email 중복 검사
+	/**
+	 * Email 중복 검사
+	 * @param email
+	 */
 	public boolean checkDuplicationEmail(String email){
 		
 		boolean duplication = false;
