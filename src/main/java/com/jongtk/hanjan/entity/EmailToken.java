@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -23,7 +24,8 @@ public class EmailToken extends BaseEntity{
 	@Column(name = "EMAIL_TOKEN_ID")
 	private String id;
 	
-	@ManyToOne
+	// 토큰에서 만료 여부를 확인할때 Member 엔티티는 탐색하지 않음 (지연 로딩 처리)
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Member member;
 	
 	private boolean expired;

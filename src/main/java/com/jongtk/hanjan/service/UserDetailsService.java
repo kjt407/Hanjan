@@ -3,8 +3,7 @@ package com.jongtk.hanjan.service;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import javax.transaction.Transactional;
-
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -25,7 +24,7 @@ public class UserDetailsService implements org.springframework.security.core.use
 	private final MemberRepository memberRepository;
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String username){
 		//인증을 위한 로직을 직접 구현 가능
 		
 		log.info("loadUserByUsername 호출됨 ==== "+username);
@@ -40,6 +39,11 @@ public class UserDetailsService implements org.springframework.security.core.use
 		Member member = memberOp.get();
 		
 		log.info("Member = "+member.getName());
+		
+		if(!member.isEmailVerified()) {
+			// 이메일 인증이 완료되지 않은 상태일때
+			throw new UsernameNotFoundException("verify email first");
+		}
 		
 		// SpringSecurity User가 의도한 대로 GrantedAuthority를 생성해서 반환
 		AuthMemberDTO authMemberDTO = new AuthMemberDTO(

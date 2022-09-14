@@ -40,7 +40,7 @@ public class ApiLoginFilter extends AbstractAuthenticationProcessingFilter{
 		log.info("ApiLoginFilter=============");
 		log.info(request.getMethod());
 
-		if(!	request.getMethod().equals("POST")) {
+		if(!request.getMethod().equals("POST")) {
 			List<HttpMethod> allowMethods = new ArrayList<>();
 			allowMethods.add(HttpMethod.POST);
 			throw new MethodNotAllowedException(request.getMethod(),allowMethods);				

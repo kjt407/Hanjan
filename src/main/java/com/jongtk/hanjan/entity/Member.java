@@ -50,6 +50,9 @@ public class Member extends BaseEntity{
 	
 	private int drinkCapacity;
 	
+	// 회원가입시 이메일 인증완료 여부
+	private boolean emailVerified;
+	
 	// mbti는 16개로 고정인것을 고려 Enum 타입으로 지정
 	@Enumerated(EnumType.STRING)
 	private Mbti mbti;

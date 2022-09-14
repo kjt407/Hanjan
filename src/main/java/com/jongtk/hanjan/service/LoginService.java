@@ -33,9 +33,8 @@ public class LoginService {
 	
 	
 	/**
-	 * 회원가입
+	 * 회원가입: 1단계(이메일 인증 전)
 	 * @param memberDTO
-	 * (email, password, name, gender)
 	 */
 	public Long join(MemberDTO memberDTO) {
 		
@@ -47,6 +46,7 @@ public class LoginService {
 				.password(passwordEncoder.encode(memberDTO.getPassword()))
 				.name(memberDTO.getName())
 				.gender(memberDTO.getGender().toLowerCase().contains("f")? Gender.FEMALE : Gender.MALE)
+				.emailVerified(false)
 				.build();
 		
 		member.addMemeberRole(MemberRole.USER);
