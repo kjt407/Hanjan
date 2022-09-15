@@ -85,5 +85,9 @@ public class Member extends BaseEntity{
     public void addMemeberRole(MemberRole memberRole) {
         roleSet.add(memberRole);
     }
+    
+    public void verifiedEmail() {
+    	this.emailVerified = true;
+    }
 	
 }
