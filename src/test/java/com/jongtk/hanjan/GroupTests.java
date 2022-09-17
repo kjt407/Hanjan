@@ -52,7 +52,7 @@ class GroupTests {
 		
 		Group group4 = groupRepository.findById(group4_id).get();
 		
-		log.info("group4 구성: "+group4.getHost().getName());
+		log.info("group4 호스트: "+ memberRepository.findById(group4.getHostId()).get().getName());
 		for(MemberGroup memberGroup : group4.getMemberGroups()) {
 			log.info(memberGroup.getMember().getName());
 		}

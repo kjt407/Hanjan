@@ -43,8 +43,8 @@ public class Group extends BaseEntity{
 	@Column(name = "GROUP_ID")
 	private long id;
 	
-	@ManyToOne
-	private Member host;
+	@Column(nullable = false)
+	private Long hostId;
 	
 	@Column(nullable = false)
 	private String title;
@@ -52,18 +52,23 @@ public class Group extends BaseEntity{
 	@Column(nullable = false)
 	private String content;
 	
-	private LocalDateTime dueDate;
-	
-	@OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
+	// 그룹원 모집중 여부 
+	@Column(nullable = false)
+	private boolean isOpen;
+		
+	@OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
 	@Builder.Default
 	private List<MemberGroup> memberGroups = new ArrayList<>();
 	
 	
-	//비즈니스 메소드
+	/**
+	 * 비즈니스 메소드
+	 */
 	
+	// 그룹 생성
 	public static Group createGroup(Member member, String title, String content, MemberGroup... memberGroups) {
 		Group group= new Group();
-		group.host = member;
+		group.hostId = member.getId();
 		group.title = title;
 		group.content = content;	
 		for(MemberGroup memberGroup: memberGroups) {

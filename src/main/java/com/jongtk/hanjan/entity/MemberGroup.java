@@ -27,6 +27,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+/**
+ * Member:Group = M:N
+ * 관계 해석을 위한 연결 테이블
+ */
 @Entity
 @Builder
 @NoArgsConstructor
@@ -34,7 +38,7 @@ import lombok.NoArgsConstructor;
 @Getter
 public class MemberGroup extends BaseEntity{
 
-	// 연결테이블을 Entity로 승격 대리키 사용
+	// 연결테이블을 Entity로 승격 => 대리키 사용
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "MEMBER_GROUP_ID")
 	private long id;

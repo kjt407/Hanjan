@@ -59,7 +59,7 @@ public class GroupService {
 		List<GroupDTO> result = groups.stream().map(group -> {
 			GroupDTO groupDTO = GroupDTO.builder()
 					.id(group.getId())
-					.hostId(group.getHost().getId())
+					.hostId(group.getHostId())
 					.title(group.getTitle())
 					.content(group.getContent())
 					.build();

@@ -68,7 +68,7 @@ public class Member extends BaseEntity{
 	
 	@OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
 	@Builder.Default
-	private List<MemberGroup> memberGroups = new ArrayList<MemberGroup>();
+	private List<MemberGroup> memberGroups = new ArrayList<>();
 	
 	
 	//Entity 생성패턴: 팩토리메소드
