@@ -45,28 +45,28 @@ public interface GroupService {
 	 */
 	default GroupDTO entityToDTO(Group group) {
 		
-			GroupDTO groupDTO = GroupDTO.builder()
-					.id(group.getId())
-					.hostId(group.getHostId())
-					.title(group.getTitle())
-					.content(group.getContent())
-					.memberList(group.getMemberGroups().stream().map(
-							memberGroup-> {
-								MemberDTO memberDTO = MemberDTO.builder()
-										.id(memberGroup.getMember().getId())
-										.email(memberGroup.getMember().getEmail())
-										.name(memberGroup.getMember().getName())
-										.gender(memberGroup.getMember().getGender().toString())
-										.message(memberGroup.getMember().getMessage())
-										.mbti(memberGroup.getMember().getMbti())
-										.drinkCapacity(memberGroup.getMember().getDrinkCapacity())
-										.address(memberGroup.getMember().getAddress())
-										.build();
-								return memberDTO;
-							}).collect(Collectors.toList()))
-					.build();
-			
-			return groupDTO;
+		GroupDTO groupDTO = GroupDTO.builder()
+				.id(group.getId())
+				.hostId(group.getHostId())
+				.title(group.getTitle())
+				.content(group.getContent())
+				.memberList(group.getMemberGroups().stream().map(
+						memberGroup-> {
+							MemberDTO memberDTO = MemberDTO.builder()
+									.id(memberGroup.getMember().getId())
+									.email(memberGroup.getMember().getEmail())
+									.name(memberGroup.getMember().getName())
+									.gender(memberGroup.getMember().getGender().toString())
+									.message(memberGroup.getMember().getMessage())
+									.mbti(memberGroup.getMember().getMbti())
+									.drinkCapacity(memberGroup.getMember().getDrinkCapacity())
+									.address(memberGroup.getMember().getAddress())
+									.build();
+							return memberDTO;
+						}).collect(Collectors.toList()))
+				.build();
+		
+		return groupDTO;
 	}
 	
 	/*
@@ -75,7 +75,8 @@ public interface GroupService {
 	 */
 	@Deprecated
 	default GroupDTO dtoToEntity(Group group) {
-
+		// 브랜치 변경 오류 해결용
 		return null;
-}
+	}
+	
 }
