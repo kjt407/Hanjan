@@ -35,8 +35,8 @@ public class GroupDTO {
 	
 	private LocalDateTime dueDate;
 	
-	private int membersNum;
+	private List<MemberDTO> memberList;
 	
-	private int maxNum;
+	private int maxMemberNum;
 
 }

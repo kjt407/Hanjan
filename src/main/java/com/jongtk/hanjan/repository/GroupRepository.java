@@ -14,15 +14,15 @@ import com.jongtk.hanjan.entity.Member;
 public interface GroupRepository extends JpaRepository<Group, Long>{
 	
 	//특정 사용자가 가입한 모임만 조회
-	@Query("select g from Group g join g.memberGroups mg where mg.member.id = :member_id")
-	List<Group> findMyGroup(@Param("member_id")long member_id);
+	@Query("select g from Group g join g.memberGroups mg where mg.member.id = :memberId")
+	List<Group> findByMemeber(@Param("memberId")long memberId);
 	
-	//특정 사용자가 호스팅한 모임만 조회
-	@Query("select g from Group g join g.memberGroups mg where mg.group.hostId = :member_id")
-	List<Group> findHostGroup(@Param("member_id")long member_id);
+//	//특정 사용자가 호스팅한 모임만 조회
+//	@Query("select g from Group g join g.memberGroups mg where mg.group.hostId = :member_id")
+//	List<Group> findHostGroup(@Param("member_id")long member_id);
 	
-	//특정 사용자가 가입한 모임만 조회
-	@Query("select g from Group g join g.memberGroups mg where mg.member.id = :member_id and mg.group.hostId != :member_id")
-	List<Group> findJoinGroup(@Param("member_id")long member_id);
+//	//특정 사용자가 가입한 모임만 조회
+//	@Query("select g from Group g join g.memberGroups mg where mg.member.id = :member_id and mg.group.hostId != :member_id")
+//	List<Group> findJoinGroup(@Param("member_id")long member_id);
 	
 }

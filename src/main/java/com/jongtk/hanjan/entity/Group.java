@@ -79,7 +79,7 @@ public class Group extends BaseEntity{
 	}
 
 	public void addMemberGroup(MemberGroup memberGroup) {
-		memberGroups.add(memberGroup);
+		this.memberGroups.add(memberGroup);
 		memberGroup.setGroup(this);
 	}
 	

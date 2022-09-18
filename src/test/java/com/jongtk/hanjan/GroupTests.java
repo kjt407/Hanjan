@@ -58,26 +58,18 @@ class GroupTests {
 		}
 		
 		//내가 속한 그룹(호스팅+구성원)
-		List<Group> groups = groupRepository.findMyGroup(member1.getId());
+		List<Group> groups = groupRepository.findByMemeber(member1.getId());
 		log.info("내가 속한 모든 그룹: "+groups.size());
 		for(Group group : groups) {
 			log.info(group.getTitle());
+			if(group.getHostId() == member1.getId()) {
+				log.info("↑ 내가 호스팅한 그룹임");
+			}
 		};
 		
-		//내가 호스팅한 그룹
-		List<Group> groupHosted = groupRepository.findHostGroup(member1.getId());
-		log.info("내가 호스팅한 그룹: "+groupHosted.size());
-		for(Group group : groupHosted) {
-			log.info(group.getTitle());
-		};
-		
-		//내가 가입한 그룹
-		List<Group> groupJoined = groupRepository.findJoinGroup(member1.getId());
-		log.info("내가 가입한(호스팅 제외) 그룹: "+groupJoined.size());
-		for(Group group : groupJoined) {
-			log.info(group.getTitle());
-		};
-
+		//내가 속한 그룹(호스팅+구성원): service
+		log.info("내가 속한 모든 그룹: service ========");
+		log.info(groupService.getMyGroups(member1.getId()));
 	}
 	
 	
