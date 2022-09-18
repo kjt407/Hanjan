@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jongtk.hanjan.dto.GroupDTO;
-import com.jongtk.hanjan.service.GroupService;
+import com.jongtk.hanjan.service.GroupServiceImp;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class GroupController {
 	
-	private final GroupService groupService;
+	private final GroupServiceImp groupService;
 	
 	@GetMapping("/list")
 	public ResponseEntity<List<GroupDTO>> list(){

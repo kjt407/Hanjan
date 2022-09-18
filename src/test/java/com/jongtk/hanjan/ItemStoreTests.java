@@ -20,7 +20,7 @@ import com.jongtk.hanjan.repository.MemberGroupRepository;
 import com.jongtk.hanjan.repository.MemberRepository;
 import com.jongtk.hanjan.repository.test.ItemRepository;
 import com.jongtk.hanjan.repository.test.StoreRepository;
-import com.jongtk.hanjan.service.GroupService;
+import com.jongtk.hanjan.service.GroupServiceImp;
 
 import lombok.extern.log4j.Log4j2;
 

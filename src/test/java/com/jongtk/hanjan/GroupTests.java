@@ -16,7 +16,7 @@ import com.jongtk.hanjan.entity.MemberGroup;
 import com.jongtk.hanjan.repository.GroupRepository;
 import com.jongtk.hanjan.repository.MemberGroupRepository;
 import com.jongtk.hanjan.repository.MemberRepository;
-import com.jongtk.hanjan.service.GroupService;
+import com.jongtk.hanjan.service.GroupServiceImp;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -28,7 +28,7 @@ class GroupTests {
 	@Autowired GroupRepository groupRepository;
 	@Autowired MemberRepository memberRepository;
 	@Autowired MemberGroupRepository memberGroupRepository;
-	@Autowired GroupService groupService;
+	@Autowired GroupServiceImp groupService;
 	Member member1;
 	Member member2;
 	Member member3;

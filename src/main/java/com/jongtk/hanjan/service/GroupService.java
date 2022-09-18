@@ -19,74 +19,32 @@ import com.jongtk.hanjan.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
-@RequiredArgsConstructor
 @Transactional
-public class GroupService {
-	
-	private final GroupRepository groupRepository;
-	private final MemberRepository memberRepository;
-	private final MemberGroupRepository memberGroupRepository ;
+public interface GroupService {
 	
 	//그룹 생성
-	public Long hostGroup(Long memberId, String title, String content) {
-		
-		Member member = memberRepository.findById(memberId).get();
-		
-		MemberGroup memberGroup = MemberGroup.createMemberGroup(member);
-		/*
-		 * 연결 테이블 영속화 
-		 * member와 group의 외래키 관리는 MemberGroup Entity에서 수행한다
-		 * 따라서 반드시 MemberGroup Entity를 영속화 시켜 연관관계 유지
-		 */
-		memberGroupRepository.save(memberGroup);
-		
-		// 새 그룹 생성 및 영속
-		Group group = Group.createGroup(member, title, content, memberGroup);
-		groupRepository.save(group);
-		
-		return group.getId(); 
-	}
+	public Long hostGroup(Long memberId, String title, String content);
 	
 	//그룹 가입
-	public void joinGroup(Long memberId, Long groupId) {
-		
-		Member member = memberRepository.findById(memberId).get();
-		Group group = groupRepository.findById(groupId).get();
-		
-		MemberGroup memberGroup = MemberGroup.createMemberGroup(member);		
-		/*
-		 * 연결 테이블 영속화 
-		 * member와 group의 외래키 관리는 MemberGroup Entity에서 수행한다
-		 * 따라서 반드시 MemberGroup Entity를 영속화 시켜 연관관계 유지
-		 */
-		memberGroupRepository.save(memberGroup);
-		
-		group.addMemberGroup(memberGroup);
-		groupRepository.save(group);
-	}
+	public void joinGroup(Long memberId, Long groupId);
 	
 	//그룹 조회(ALL)
-	public List<GroupDTO> getAll() {
-		List<Group> groupList = groupRepository.findAll();
-		
-		List<GroupDTO> result = groupList.stream().map(group -> {
-			GroupDTO groupDTO = GroupDTO.builder()
-					.id(group.getId())
-					.hostId(group.getHostId())
-					.title(group.getTitle())
-					.content(group.getContent())
-					.build();
-			return groupDTO;
-		}).collect(Collectors.toList());
-		
-		return result;
-	}
+	public List<GroupDTO> getAll();
 	
 	//내 그룹 조회
-	public List<GroupDTO> getMyGroups(Long memberId) {
-		List<Group> groupList = groupRepository.findByMemeber(memberId);
+	public List<GroupDTO> getMyGroups(Long memberId);
 		
-		List<GroupDTO> result = groupList.stream().map(group -> {
+	//그룹 탈퇴
+	//모임날짜생성
+	
+	// 공통 메소드 구현
+	
+	/*
+	 * Group -> GroupDTO
+	 * 멤버 리스트 까지 fullConvert 
+	 */
+	default GroupDTO entityToDTO(Group group) {
+		
 			GroupDTO groupDTO = GroupDTO.builder()
 					.id(group.getId())
 					.hostId(group.getHostId())
@@ -107,12 +65,17 @@ public class GroupService {
 								return memberDTO;
 							}).collect(Collectors.toList()))
 					.build();
+			
 			return groupDTO;
-		}).collect(Collectors.toList());
-		
-		return result;
 	}
-		
-	//그룹 탈퇴
-	//모임날짜생성
+	
+	/*
+	 * GroupDTO -> Group
+	 * 현재 미구현 필요시 구현하여 사용할것
+	 */
+	@Deprecated
+	default GroupDTO dtoToEntity(Group group) {
+
+		return null;
+}
 }
