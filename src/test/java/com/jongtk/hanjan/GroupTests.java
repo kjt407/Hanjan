@@ -72,12 +72,47 @@ class GroupTests {
 		log.info(groupService.getMyGroups(member1.getId()));
 	}
 	
+	//그룹 탈퇴
+	@Test @Rollback(false)
+	public void 그룹탈퇴() throws Exception{
+		
+		//Given
+		createMemberEach();
+
+		Long group1_id = groupService.hostGroup(member1.getId(), "그룹1", "그냥내용");
+		Long group2_id = groupService.hostGroup(member1.getId(), "그룹2", "그냥내용");
+		Long group3_id = groupService.hostGroup(member1.getId(), "그룹3", "그냥내용");
+		Long group4_id = groupService.hostGroup(member2.getId(), "그룹4", "그냥내용");
+		
+		groupService.joinGroup(member1.getId(), group1_id);
+		groupService.joinGroup(member1.getId(), group2_id);
+		groupService.joinGroup(member1.getId(), group3_id);
+		groupService.joinGroup(member1.getId(), group4_id);
+		
+		log.info("========= 4번째 그룹의 멤버 목록");
+		groupService.withDrawGroup(group4_id, member1.getId());
+		groupRepository.findById(group4_id).get()
+			.getMemberGroups().stream().forEach(memberGroup->{
+				log.info("멤버 : " + memberGroup.getMember().getName());
+			});
+		
+		log.info("========= member1이 속한 그룹");
+		groupRepository.findByMemeber(member1.getId()).stream().forEach(group->{
+				log.info("그룹 : " + group.getId());
+			});
+	}
+	
+	
+	
 	
 	//테스트 편의 메서드
 	void createMemberEach() {
 		member1 = Member.createMember("user1@gmail.com", "유저1", "1111", Gender.MALE);
 		member2 = Member.createMember("user2@gmail.com", "유저2", "1211", Gender.FEMALE);
 		member3 = Member.createMember("user3@gmail.com", "유저3", "1121", Gender.MALE);
+		memberRepository.save(member1);
+		memberRepository.save(member2);
+		memberRepository.save(member3);
 	}
 	
 

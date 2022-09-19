@@ -78,6 +78,7 @@ public class Group extends BaseEntity{
 		return group;
 	}
 
+	// 연결 테이블 추가
 	public void addMemberGroup(MemberGroup memberGroup) {
 		this.memberGroups.add(memberGroup);
 		memberGroup.setGroup(this);

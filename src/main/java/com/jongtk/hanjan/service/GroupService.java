@@ -35,10 +35,12 @@ public interface GroupService {
 	public List<GroupDTO> getMyGroups(Long memberId);
 		
 	//그룹 탈퇴
+	public void withDrawGroup(Long groupId, Long memberId);
+	
 	//모임날짜생성
 	
-	// 공통 메소드 구현
 	
+	/* 공통 메소드 구현 */
 	/*
 	 * Group -> GroupDTO
 	 * 멤버 리스트 까지 fullConvert 

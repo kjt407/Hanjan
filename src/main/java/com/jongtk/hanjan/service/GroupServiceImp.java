@@ -1,6 +1,7 @@
 package com.jongtk.hanjan.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
@@ -86,7 +87,18 @@ public class GroupServiceImp implements GroupService{
 		
 		return result;
 	}
+
 		
 	//그룹 탈퇴
+	public void withDrawGroup(Long groupId, Long memberId) {
+
+		Optional<MemberGroup> memberGroupOp = groupRepository.findMemberGroupByGroupId(groupId, memberId);
+		if(memberGroupOp.isPresent()) {
+			MemberGroup mg = memberGroupOp.get();
+			memberGroupRepository.delete(mg);
+		}
+	}
+	
+	
 	//모임날짜생성
 }

@@ -28,12 +28,25 @@ public class LoginService {
 	private final MemberRepository memberRepository;
 	private final EmailTokenRepository emailTokenRepository;
 	private final PasswordEncoder passwordEncoder;
-	private final EmailTokenService emailTokenService;
 	private final EmailSendService emailSendService;
 	
+	/**
+	 * Email 중복 검사
+	 * @param email
+	 */
+	public boolean checkDuplicationEmail(String email){
+		
+		boolean duplication = false;
+		
+		Optional<Member> memberOp =  memberRepository.findByEmail(email);
+		if(memberOp.isPresent()) duplication = true;
+		
+		return duplication;
+	}
 	
 	/**
 	 * 회원가입: 1단계(이메일 인증 전)
+	 * 1st. 이메일 토큰을 발행 및 이메일 발송
 	 * @param memberDTO
 	 * @throws Exception 
 	 */
@@ -61,10 +74,11 @@ public class LoginService {
 		memberRepository.save(member);
 		
 		// 이메일 인증용 토큰 발행
-		String tokenUid = emailTokenService.createEmailToken(member);
+		EmailToken token = EmailToken.createToken(member);
+		emailTokenRepository.save(token);
 		
 		// 이메일 발송
-		emailSendService.sendEmail(member.getEmail(), tokenUid);
+		emailSendService.sendEmail(member.getEmail(), token.getId());
 		
 		return member.getId();
 	}
@@ -77,35 +91,26 @@ public class LoginService {
 		
 		Optional<EmailToken> tokenOp = emailTokenRepository.findById(uuid);
 		if(tokenOp.isPresent()) {
-			EmailToken emailToken = tokenOp.get();
-			LocalDateTime expireDate = emailToken.getExpireDate();
+			EmailToken token = tokenOp.get();
+			LocalDateTime expireDate = token.getExpireDate();
 			LocalDateTime nowDate = LocalDateTime.now();
 			if(expireDate.isAfter(nowDate)) {
-				Member member = emailToken.getMember();
+				/*
+				 *  토큰이 존재하며 만료시간 전이라면
+				 *  회원 가입을 마무리 -> 토큰 만료
+				 */
+				Member member = token.getMember();
 				member.verifiedEmail();
-				memberRepository.save(member);
+				token.expireToken();
 				
+				memberRepository.save(member);
+				emailTokenRepository.save(token);
 				return true;
 			}
 		}
 		
 		return false;
 	}
-	
-	/**
-	 * Email 중복 검사
-	 * @param email
-	 */
-	public boolean checkDuplicationEmail(String email){
-		
-		boolean duplication = false;
-		
-		Optional<Member> memberOp =  memberRepository.findByEmail(email);
-		if(memberOp.isPresent()) duplication = true;
-		
-		return duplication;
-	}
-	
 	
 	//회원조회(ID)
 	//회원조회(ALL)

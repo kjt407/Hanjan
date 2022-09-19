@@ -10,7 +10,6 @@ import com.jongtk.hanjan.entity.Group;
 import com.jongtk.hanjan.entity.MemberGroup;
 
 
-// SpringDataJpa는 JpaRepository 상속한 인터페이스를 구현하는 것 만으로도 Repository 기능을 사용 가능
 public interface MemberGroupRepository extends JpaRepository<MemberGroup, Long>{
 	
 }
