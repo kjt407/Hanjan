@@ -1,9 +1,14 @@
 package com.jongtk.hanjan;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.Assert.assertThrows;
+
 import java.util.List;
 
 import javax.transaction.Transactional;
+import javax.validation.constraints.AssertTrue;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -74,7 +79,7 @@ class GroupTests {
 	
 	//그룹 탈퇴
 	@Test @Rollback(false)
-	public void 그룹탈퇴() throws Exception{
+	public void 그룹탈퇴(){
 		
 		//Given
 		createMemberEach();
@@ -82,12 +87,22 @@ class GroupTests {
 		Long group1_id = groupService.hostGroup(member1.getId(), "그룹1", "그냥내용");
 		Long group2_id = groupService.hostGroup(member1.getId(), "그룹2", "그냥내용");
 		Long group3_id = groupService.hostGroup(member1.getId(), "그룹3", "그냥내용");
-		Long group4_id = groupService.hostGroup(member2.getId(), "그룹4", "그냥내용");
+		Long group4_id = groupService.hostGroup(member1.getId(), "그룹4", "그냥내용");
 		
-		groupService.joinGroup(member1.getId(), group1_id);
-		groupService.joinGroup(member1.getId(), group2_id);
-		groupService.joinGroup(member1.getId(), group3_id);
-		groupService.joinGroup(member1.getId(), group4_id);
+		groupService.joinGroup(member2.getId(), group1_id);
+		groupService.joinGroup(member2.getId(), group2_id);
+		groupService.joinGroup(member2.getId(), group3_id);
+		groupService.joinGroup(member2.getId(), group4_id);
+		
+//		assertThatThrownBy(()-> {
+//			/* 그룹4에 member1 중복 추가 시 */
+//			groupService.joinGroup(member1.getId(), group4_id);
+//		}).isInstanceOf(RuntimeException.class);
+		
+		assertThrows(RuntimeException.class, ()-> {
+			/* 그룹4에 member1 중복 추가 시 */
+			groupService.joinGroup(member1.getId(), group4_id);
+		});
 		
 		log.info("========= 4번째 그룹의 멤버 목록");
 		groupService.withDrawGroup(group4_id, member1.getId());
@@ -98,7 +113,7 @@ class GroupTests {
 		
 		log.info("========= member1이 속한 그룹");
 		groupRepository.findByMemeber(member1.getId()).stream().forEach(group->{
-				log.info("그룹 : " + group.getId());
+				log.info("그룹 : " + group.getTitle());
 			});
 	}
 	

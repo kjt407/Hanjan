@@ -58,7 +58,7 @@ public class LoginService {
 		Optional<Member> memberOp = memberRepository.findByEmail(memberDTO.getEmail());
 		if(memberOp.isPresent()) {
 			// 이미 존재하는 회원일 경우
-			throw new Exception("already Exist");
+			throw new RuntimeException("already Exist");
 		}
 		
 		Member member = Member.builder()

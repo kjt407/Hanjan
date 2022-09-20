@@ -53,6 +53,9 @@ public class MemberGroup extends BaseEntity{
 	private Group group;
 	
 	
+	/*
+	 * MemberGroup 생성시 Member를 먼저 맵핑 
+	 */
 	public static MemberGroup createMemberGroup(Member member) {
 		MemberGroup memberGroup = new MemberGroup();
 		memberGroup.member = member;
@@ -60,6 +63,9 @@ public class MemberGroup extends BaseEntity{
 		return memberGroup;
 	}
 
+	/*
+	 * 이후 Group을 생성하며 MemberGroup에 Group을 맵핑 
+	 */
 	public void setGroup(Group group) {
 		this.group = group;
 	}

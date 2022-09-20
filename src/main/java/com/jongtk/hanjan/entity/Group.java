@@ -61,27 +61,45 @@ public class Group extends BaseEntity{
 	private List<MemberGroup> memberGroups = new ArrayList<>();
 	
 	
-	/**
-	 * 비즈니스 메소드
-	 */
+	/** 비즈니스 메소드 **/
 	
-	// 그룹 생성
+	/*
+	 *  그룹 생성
+	 */
 	public static Group createGroup(Member member, String title, String content, MemberGroup... memberGroups) {
 		Group group= new Group();
 		group.hostId = member.getId();
 		group.title = title;
 		group.content = content;	
 		for(MemberGroup memberGroup: memberGroups) {
-			group.addMemberGroup(memberGroup);
+			group.join(memberGroup);
 		}
 	
 		return group;
 	}
 
-	// 연결 테이블 추가
-	public void addMemberGroup(MemberGroup memberGroup) {
+	/*
+	 * 그룹에 회원 추가
+	 * N:M 관계이기 때문에 다음과 같이 Entity 내에서 메서드로 처리
+	 */
+	public void join(MemberGroup memberGroup) {
 		this.memberGroups.add(memberGroup);
 		memberGroup.setGroup(this);
+	}
+	
+	/*
+	 * 그룹 탈퇴
+	 */
+	public void withDraw(MemberGroup memberGroup) {
+
+		if(this.memberGroups.size() > 1) {
+			/* 탈퇴하려는 사용자가 호스트일 경우 그룹장을 다른 사람에게 넘기도록 */
+			if(this.hostId == memberGroup.getId()) {
+				throw new RuntimeException("host can not withDraw");
+			}
+			
+			this.memberGroups.remove(memberGroup);
+		}
 	}
 	
 }
