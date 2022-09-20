@@ -37,6 +37,7 @@ public interface GroupService {
 	//그룹 탈퇴
 	public void withDrawGroup(Long groupId, Long memberId);
 	
+	
 	//모임날짜생성
 	
 	

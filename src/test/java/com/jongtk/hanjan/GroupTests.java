@@ -82,23 +82,28 @@ class GroupTests {
 		Long group1_id = groupService.hostGroup(member1.getId(), "그룹1", "그냥내용");
 		Long group2_id = groupService.hostGroup(member1.getId(), "그룹2", "그냥내용");
 		Long group3_id = groupService.hostGroup(member1.getId(), "그룹3", "그냥내용");
-		Long group4_id = groupService.hostGroup(member2.getId(), "그룹4", "그냥내용");
+		Long group4_id = groupService.hostGroup(member1.getId(), "그룹4", "그냥내용");
 		
-		groupService.joinGroup(member1.getId(), group1_id);
-		groupService.joinGroup(member1.getId(), group2_id);
-		groupService.joinGroup(member1.getId(), group3_id);
-		groupService.joinGroup(member1.getId(), group4_id);
+		groupService.joinGroup(member2.getId(), group1_id);
+		groupService.joinGroup(member2.getId(), group2_id);
+		groupService.joinGroup(member2.getId(), group3_id);
+		groupService.joinGroup(member2.getId(), group4_id);
 		
+		try {
 		log.info("========= 4번째 그룹의 멤버 목록");
 		groupService.withDrawGroup(group4_id, member1.getId());
 		groupRepository.findById(group4_id).get()
 			.getMemberGroups().stream().forEach(memberGroup->{
 				log.info("멤버 : " + memberGroup.getMember().getName());
 			});
+		} catch (Exception e) {
+			// TODO: handle exception
+			log.warn(e.getMessage());
+		}
 		
 		log.info("========= member1이 속한 그룹");
 		groupRepository.findByMemeber(member1.getId()).stream().forEach(group->{
-				log.info("그룹 : " + group.getId());
+				log.info("그룹 : " + group.getTitle());
 			});
 	}
 	

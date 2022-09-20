@@ -28,17 +28,19 @@ public class GroupServiceImp implements GroupService{
 	private final MemberRepository memberRepository;
 	private final MemberGroupRepository memberGroupRepository ;
 	
-	//그룹 생성
+	/*
+	 * 그룹 생성
+	 */
 	public Long hostGroup(Long memberId, String title, String content) {
 		
 		Member member = memberRepository.findById(memberId).get();
 		
-		MemberGroup memberGroup = MemberGroup.createMemberGroup(member);
 		/*
 		 * 연결 테이블 영속화 
 		 * member와 group의 외래키 관리는 MemberGroup Entity에서 수행한다
 		 * 따라서 반드시 MemberGroup Entity를 영속화 시켜 연관관계 유지
-		 */
+		 */		
+		MemberGroup memberGroup = MemberGroup.createMemberGroup(member);
 		memberGroupRepository.save(memberGroup);
 		
 		// 새 그룹 생성 및 영속
@@ -48,21 +50,31 @@ public class GroupServiceImp implements GroupService{
 		return group.getId(); 
 	}
 	
-	//그룹 가입
+	/*
+	 * 그룹 가입
+	 */
 	public void joinGroup(Long memberId, Long groupId) {
 		
-		Member member = memberRepository.findById(memberId).get();
-		Group group = groupRepository.findById(groupId).get();
+		Optional<Member> memberOp = memberRepository.findById(memberId);
+		Optional<Group> groupOp = groupRepository.findById(groupId);
 		
-		MemberGroup memberGroup = MemberGroup.createMemberGroup(member);		
+		if(! (memberOp.isPresent() && groupOp.isPresent()) ) {
+			// 멤버 또는 그룹이 존재하지 않을 경우 예외
+			throw new RuntimeException("member or group is not Exist");
+		}
+		
+		Member member = memberOp.get();
+		Group group = groupOp.get();
+		
 		/*
 		 * 연결 테이블 영속화 
 		 * member와 group의 외래키 관리는 MemberGroup Entity에서 수행한다
 		 * 따라서 반드시 MemberGroup Entity를 영속화 시켜 연관관계 유지
 		 */
+		MemberGroup memberGroup = MemberGroup.createMemberGroup(member);		
 		memberGroupRepository.save(memberGroup);
 		
-		group.addMemberGroup(memberGroup);
+		group.join(memberGroup);
 		groupRepository.save(group);
 	}
 	
@@ -91,13 +103,20 @@ public class GroupServiceImp implements GroupService{
 		
 	//그룹 탈퇴
 	public void withDrawGroup(Long groupId, Long memberId) {
-
-		Optional<MemberGroup> memberGroupOp = groupRepository.findMemberGroupByGroupId(groupId, memberId);
-		if(memberGroupOp.isPresent()) {
-			MemberGroup mg = memberGroupOp.get();
-			memberGroupRepository.delete(mg);
+		
+		Optional<MemberGroup> mgOp = memberGroupRepository.findByAllMatch(memberId, groupId);
+		if(!mgOp.isPresent()) {
+			throw new RuntimeException("It does not exist");
 		}
+		MemberGroup mg = mgOp.get();
+		
+		Group targetGroup =  mg.getGroup();
+		targetGroup.withDraw(mg);
+		
+		groupRepository.save(targetGroup);
+		memberGroupRepository.delete(mg);
 	}
+
 	
 	
 	//모임날짜생성
