@@ -55,6 +55,12 @@ public class GroupServiceImp implements GroupService{
 	 */
 	public void joinGroup(Long memberId, Long groupId) {
 		
+		/* 같은 회원 중복가입 방지 */
+		Optional<MemberGroup> mgOp = memberGroupRepository.findByAllMatch(memberId, groupId);
+		if(mgOp.isPresent()) {
+			throw new RuntimeException("already joined");
+		}
+		
 		Optional<Member> memberOp = memberRepository.findById(memberId);
 		Optional<Group> groupOp = groupRepository.findById(groupId);
 		

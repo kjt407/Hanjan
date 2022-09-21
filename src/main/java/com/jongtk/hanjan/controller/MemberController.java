@@ -27,7 +27,7 @@ public class MemberController {
 	 * 이메일 중복 검사
 	 */
 	@GetMapping("/duplicate")
-	public ResponseEntity<HashMap<String,Object>> checkDuplicationEmail(String email){
+	public ResponseEntity<HashMap<String,Object>> checkDuplicationEmail(String email)  throws Exception{
 		
 		HashMap<String,Object> result = new HashMap<>();
 		
@@ -45,21 +45,16 @@ public class MemberController {
 	/**
 	 * 회원가입: 2단계
 	 * 이메일 인증 발송
+	 * @throws Exception 
 	 */
 	@PostMapping("/join")
-	public ResponseEntity<HashMap<String,Object>> join(MemberDTO memberDTO){
+	public ResponseEntity<HashMap<String,Object>> join(MemberDTO memberDTO) throws Exception{
 		
 		HashMap<String,Object> result = new HashMap<>();
 		Long id;
 		
-		try {
-			id = loginService.join(memberDTO);
-		} catch (Exception e) {
-			// 회원 가입 에러 발생 시
-			result.put("message", "failed to register member");
-			return ResponseEntity.internalServerError().body(result);
-		}
-		
+		id = loginService.join(memberDTO);
+	
 		result.put("message", "success");
 		result.put("id", id);
 		return ResponseEntity.ok().body(result);
