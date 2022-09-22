@@ -5,6 +5,6 @@ import lombok.experimental.SuperBuilder;
 
 @SuperBuilder
 @Data
-public class ErrorResponse extends BaseResponse{
+public class SuccessResponse extends BaseResponse{
 
 }
