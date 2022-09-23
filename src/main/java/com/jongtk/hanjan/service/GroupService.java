@@ -23,10 +23,10 @@ import lombok.RequiredArgsConstructor;
 public interface GroupService {
 	
 	//그룹 생성
-	public Long hostGroup(Long memberId, String title, String content);
+	public Long host(Long memberId, String title, String content);
 	
 	//그룹 가입
-	public void joinGroup(Long memberId, Long groupId);
+	public void join(Long memberId, Long groupId);
 	
 	//그룹 조회(ALL)
 	public List<GroupDTO> getAll();

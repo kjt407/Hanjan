@@ -48,12 +48,12 @@ class GroupTests {
 		memberRepository.save(member2);
 		memberRepository.save(member3);
 
-		Long group1_id = groupService.hostGroup(member1.getId(), "그룹1", "그냥내용");
-		Long group2_id = groupService.hostGroup(member1.getId(), "그룹2", "그냥내용");
-		Long group3_id = groupService.hostGroup(member1.getId(), "그룹3", "그냥내용");
-		Long group4_id = groupService.hostGroup(member2.getId(), "그룹4", "그냥내용");
+		Long group1_id = groupService.host(member1.getId(), "그룹1", "그냥내용");
+		Long group2_id = groupService.host(member1.getId(), "그룹2", "그냥내용");
+		Long group3_id = groupService.host(member1.getId(), "그룹3", "그냥내용");
+		Long group4_id = groupService.host(member2.getId(), "그룹4", "그냥내용");
 		
-		groupService.joinGroup(member1.getId(), group4_id);
+		groupService.join(member1.getId(), group4_id);
 		
 		Group group4 = groupRepository.findById(group4_id).get();
 		
@@ -84,24 +84,24 @@ class GroupTests {
 		//Given
 		createMemberEach();
 
-		Long group1_id = groupService.hostGroup(member1.getId(), "그룹1", "그냥내용");
-		Long group2_id = groupService.hostGroup(member1.getId(), "그룹2", "그냥내용");
-		Long group3_id = groupService.hostGroup(member1.getId(), "그룹3", "그냥내용");
-		Long group4_id = groupService.hostGroup(member1.getId(), "그룹4", "그냥내용");
+		Long group1_id = groupService.host(member1.getId(), "그룹1", "그냥내용");
+		Long group2_id = groupService.host(member1.getId(), "그룹2", "그냥내용");
+		Long group3_id = groupService.host(member1.getId(), "그룹3", "그냥내용");
+		Long group4_id = groupService.host(member1.getId(), "그룹4", "그냥내용");
 		
-		groupService.joinGroup(member2.getId(), group1_id);
-		groupService.joinGroup(member2.getId(), group2_id);
-		groupService.joinGroup(member2.getId(), group3_id);
-		groupService.joinGroup(member2.getId(), group4_id);
+		groupService.join(member2.getId(), group1_id);
+		groupService.join(member2.getId(), group2_id);
+		groupService.join(member2.getId(), group3_id);
+		groupService.join(member2.getId(), group4_id);
 		
 //		assertThatThrownBy(()-> {
 //			/* 그룹4에 member1 중복 추가 시 */
-//			groupService.joinGroup(member1.getId(), group4_id);
+//			groupService.join(member1.getId(), group4_id);
 //		}).isInstanceOf(RuntimeException.class);
 		
 		assertThrows(RuntimeException.class, ()-> {
 			/* 그룹4에 member1 중복 추가 시 */
-			groupService.joinGroup(member1.getId(), group4_id);
+			groupService.join(member1.getId(), group4_id);
 		});
 		
 		log.info("========= 4번째 그룹의 멤버 목록");

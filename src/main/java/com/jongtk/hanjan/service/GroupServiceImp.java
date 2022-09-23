@@ -31,7 +31,7 @@ public class GroupServiceImp implements GroupService{
 	/*
 	 * 그룹 생성
 	 */
-	public Long hostGroup(Long memberId, String title, String content) {
+	public Long host(Long memberId, String title, String content) {
 		
 		Member member = memberRepository.findById(memberId).get();
 		
@@ -53,7 +53,7 @@ public class GroupServiceImp implements GroupService{
 	/*
 	 * 그룹 가입
 	 */
-	public void joinGroup(Long memberId, Long groupId) {
+	public void join(Long memberId, Long groupId) {
 		
 		/* 같은 회원 중복가입 방지 */
 		Optional<MemberGroup> mgOp = memberGroupRepository.findByAllMatch(memberId, groupId);
