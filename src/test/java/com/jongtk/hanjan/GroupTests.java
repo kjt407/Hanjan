@@ -104,12 +104,17 @@ class GroupTests {
 			groupService.join(member1.getId(), group4_id);
 		});
 		
+		try {
 		log.info("========= 4번째 그룹의 멤버 목록");
 		groupService.withDrawGroup(group4_id, member1.getId());
 		groupRepository.findById(group4_id).get()
 			.getMemberGroups().stream().forEach(memberGroup->{
 				log.info("멤버 : " + memberGroup.getMember().getName());
 			});
+		} catch (Exception e) {
+			// TODO: handle exception
+			log.warn(e.getMessage());
+		}
 		
 		log.info("========= member1이 속한 그룹");
 		groupRepository.findByMemeber(member1.getId()).stream().forEach(group->{
