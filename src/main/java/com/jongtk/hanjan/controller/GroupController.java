@@ -38,7 +38,7 @@ public class GroupController {
 	/*
 	 * 새 그룹 호스팅
 	 */
-	@PostMapping("/")
+	@PostMapping("/host")
 	public ResponseEntity<Long> hostGroup(@AuthenticationPrincipal AuthMemberDTO authMember){
 		
 		log.info("그룹 호스팅: 로그인 유저 = " + authMember);
