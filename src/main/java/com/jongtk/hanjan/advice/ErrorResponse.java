@@ -1,13 +1,10 @@
 package com.jongtk.hanjan.advice;
 
-import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
+@SuperBuilder
 @Data
-@Builder
-public class ErrorResponse {
+public class ErrorResponse extends BaseResponse{
 
-	private int code;
-	private String message;
-	
 }

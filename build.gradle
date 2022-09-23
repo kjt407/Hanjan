@@ -36,18 +36,13 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
-	
-	// https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
 	implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
-	
 	// jwt 라이브러리
-	// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
 	implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
-	
 	// 메일 발송을 위한 의존성 추가 
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.7.0'
-	
-
+	// swagger 의존성
+	implementation 'io.springfox:springfox-boot-starter:3.0.0'
 	
 }
 
