@@ -42,9 +42,7 @@ public class ApiCheckFilter extends OncePerRequestFilter{
 		
 		//요청 URI가 사전 설정된 pattern과 일치하다면 다른 비즈니스 로직을 구현함
 		if(antPathMatcher.match(pattern, request.getRequestURI())) {
-			log.info("API CHECK FILTER 패턴일치 =======================");			
-			log.info("API CHECK FILTER 패턴일치 =======================");			
-			log.info("API CHECK FILTER 패턴일치  =======================");
+			log.info("API CHECK FILTER 패턴일치 =======================");
 			
 			if(checkAuthHeader(request)) {
 				log.info("헤더 검증 완료 =======");

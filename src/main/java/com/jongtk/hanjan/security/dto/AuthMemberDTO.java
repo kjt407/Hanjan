@@ -16,7 +16,6 @@ public class AuthMemberDTO extends User{	//security.core.userdetails.User를 상
 	
 	private String email;
 
-
 	public AuthMemberDTO(String username, String password, String name, String email, Collection<? extends GrantedAuthority> authorities) {
 		super(username, password, authorities);
 		this.name = name;

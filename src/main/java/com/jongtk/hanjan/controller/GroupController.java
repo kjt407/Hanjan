@@ -36,6 +36,16 @@ public class GroupController {
 	}
 	
 	/*
+	 * 내 그룹 목록
+	 */
+	@GetMapping("/my")
+	public ResponseEntity<List<GroupDTO>> myList(@AuthenticationPrincipal AuthMemberDTO authMember){
+		List<GroupDTO> result =  groupService.getMyGroups(authMember.getId());
+		
+		return new ResponseEntity<List<GroupDTO>>(result, HttpStatus.OK);
+	}
+	
+	/*
 	 * 새 그룹 호스팅
 	 */
 	@PostMapping("/host")
@@ -47,5 +57,13 @@ public class GroupController {
 		return ResponseEntity.ok(10L);
 	}
 	
-	
+	/*
+	 * 특정 그룹에 가입
+	 */
+	@PostMapping("/host")
+	public ResponseEntity<String> joinGroup(@AuthenticationPrincipal AuthMemberDTO authMember, Long groupId){
+		groupService.join(authMember.getId(), groupId);
+		
+		return ResponseEntity.ok("success");
+	}
 }
